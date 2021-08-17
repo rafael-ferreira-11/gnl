@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/17 10:25:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/17 10:50:33 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ char    *get_next_line(int fd)
 	ret = malloc(buffer);
     if(!ret)
         return ("");
+    if (fd < 0)
+        return (0);
     while (read(fd, &ret[index], 1) != 0 && ret[index] != '\n') 
         index++;
         
     if (index == 0)
-        return (malloc(1));
+        return (0);
     return (ret);
 }
