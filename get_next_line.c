@@ -6,12 +6,38 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/19 09:43:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/19 09:45:24 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
+
+void	*ft_memset(void *s, int c, size_t n)
+{
+	size_t	index;
+
+	index = 0;
+	while (index < n)
+	{
+		((unsigned char *)s)[index] = c;
+		index++;
+	}
+	return (s);
+}
+
+void	*ft_calloc(size_t num, size_t size)
+{
+	void	*res;
+	size_t	index;
+
+	index = 0;
+	res = malloc(num * size);
+	if (!res)
+		return (0);
+	ft_memset(res, 0, num * size);
+	return (res);
+}
 
 char *get_next_line(int fd)
 {
@@ -28,13 +54,13 @@ char *get_next_line(int fd)
 	#endif
 	if (fd < 0 || buffer <= 0)
 		return (0);
-	ret = malloc(buffer + 1);
+	ret = calloc((buffer + 1), 1);
 	if (!ret)
 		return (0);
 	while (read(fd, &ret[index], 1) > 0 && ret[index] != '\n')
 		index++;
 
-	if (index == 0 )
+	if (index == 0 && ret[0] == 0)
 	{
 		free(ret);
 		return (0);
