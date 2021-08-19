@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/18 11:53:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/19 09:14:30 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char    *get_next_line(int fd)
     if (index == 0 && ret[0] == 0)
     {
         free(ret);
-        return (0);
+        return ((char *)0);
     }
     return (ret);
 }
