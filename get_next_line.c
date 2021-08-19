@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/19 09:46:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/19 09:50:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char *get_next_line(int fd)
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
 	#else
-		buffer = 128;
+		buffer = 1;
 	#endif
 	if (fd < 0 || buffer <= 0)
 		return (0);
