@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/19 09:42:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/19 09:43:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char *get_next_line(int fd)
 	while (read(fd, &ret[index], 1) > 0 && ret[index] != '\n')
 		index++;
 
-	if (index == 0 && ret[0] == 0)
+	if (index == 0 )
 	{
 		free(ret);
 		return (0);
