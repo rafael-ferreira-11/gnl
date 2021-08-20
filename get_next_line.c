@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/19 09:51:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/20 10:33:05 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ char *get_next_line(int fd)
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
 	#else
-		buffer = 128;
+		buffer = 1;
 	#endif
 	if (fd < 0 || buffer <= 0)
 		return (0);
 	ret = calloc((buffer + 1), 1);
 	if (!ret)
 		return (0);
-	while (read(fd, &ret[index], 1) > 0 && ret[index] != '\n')
+	while (read(fd, &ret[index], buffer) > 0 && ret[index] != '\n')
 		index++;
 
 	if (index == 0 && ret[0] == 0)
