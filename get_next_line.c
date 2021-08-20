@@ -6,12 +6,11 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/20 10:33:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/20 11:09:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 void	*ft_memset(void *s, int c, size_t n)
 {
@@ -65,5 +64,6 @@ char *get_next_line(int fd)
 		free(ret);
 		return (0);
 	}
+	ret[index] = 0;
 	return (ret);
 }
