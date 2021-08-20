@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/20 11:11:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/20 11:22:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	*ft_memset(void *s, int c, size_t n)
 void	*ft_calloc(size_t num, size_t size)
 {
 	void	*res;
-	size_t	index;
 
-	index = 0;
 	res = malloc(num * size);
 	if (!res)
 		return (0);
