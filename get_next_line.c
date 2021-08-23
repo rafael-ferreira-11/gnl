@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/23 10:44:27 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/23 10:44:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ char *get_next_line(int fd)
 	int buffer;
 	char *value;
 	char *ret;
-	int	index;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
@@ -91,7 +90,6 @@ char *get_next_line(int fd)
 	#endif
 	if (fd < 0 || buffer <= 0)
 		return (0);
-	index = 1;
 	value = calloc(buffer, 1);
 	ret = malloc(sizeof(char *));
 	*ret = 0;
