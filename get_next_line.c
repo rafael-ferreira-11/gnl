@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/23 10:15:54 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/23 10:35:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,28 +27,28 @@ size_t	ft_strlen(const char *s)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*res;
-	int		index;
-	int		index_s2;
+	int		i;
+	int		j;
 
 	if (!s1 || !s2)
 		return (0);
 	res = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!res)
 		return (0);
-	index = 0;
-	while (s1[index])
+	i = 0;
+	while (s1[i])
 	{
-		res[index] = s1[index];
-		index++;
+		res[i] = s1[i];
+		i++;
 	}
-	index_s2 = 0;
-	while (s2[index_s2])
+	j = 0;
+	while (s2[j])
 	{
-		res[index] = s2[index_s2];
-		index++;
-		index_s2++;
+		res[i] = s2[j];
+		i++;
+		j++;
 	}
-	res[index] = '\0';
+	res[i] = '\0';
 	return (res);
 }
 
@@ -82,6 +82,8 @@ char *get_next_line(int fd)
 	int buffer;
 	char *value;
 	char *ret;
+	char *temp;
+	int	index;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
@@ -90,16 +92,20 @@ char *get_next_line(int fd)
 	#endif
 	if (fd < 0 || buffer <= 0)
 		return (0);
+	index = 1;
 	value = calloc(buffer, 1);
-	ret = calloc(1,1);
+	ret = calloc(buffer * index,1);
 	if (!value)
 		return (0);
 	while (read(fd, value, buffer) > 0)
 	{
 	//printf("value: %i ret: %s\n", (int)*value, ret);
-	ret = ft_strjoin(ret, value);
+	temp = ft_strjoin(ret, value);
+	ret = calloc(buffer * index,1);
+	ret = temp;
 	if (*value == '\n')
 		break ;
+	index++;
 	}
 	if (*ret == 0)
 	{
