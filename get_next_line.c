@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/23 10:15:12 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/23 10:15:54 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ char *get_next_line(int fd)
 		return (0);
 	while (read(fd, value, buffer) > 0)
 	{
-	printf("value: %i ret: %s\n", (int)*value, ret);
+	//printf("value: %i ret: %s\n", (int)*value, ret);
 	ret = ft_strjoin(ret, value);
 	if (*value == '\n')
 		break ;
