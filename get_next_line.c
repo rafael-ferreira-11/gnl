@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/23 10:04:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/23 10:15:12 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,9 @@ void	*ft_calloc(size_t num, size_t size)
 
 char *get_next_line(int fd)
 {
-	int index;
 	int buffer;
 	char *value;
 	char *ret;
-
-	index = 0;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
@@ -93,20 +90,18 @@ char *get_next_line(int fd)
 	#endif
 	if (fd < 0 || buffer <= 0)
 		return (0);
-	value = calloc((buffer + 1), 1);
+	value = calloc(buffer, 1);
 	ret = calloc(1,1);
 	if (!value)
 		return (0);
-	while (read(fd, value, buffer) > 0 && *value != '\n')
+	while (read(fd, value, buffer) > 0)
 	{
-	//printf("value: %s ret: %s\n", value, ret);
-
+	printf("value: %i ret: %s\n", (int)*value, ret);
 	ret = ft_strjoin(ret, value);
-	index++;
+	if (*value == '\n')
+		break ;
 	}
-
-
-	if (index == 0 && *ret == 0)
+	if (*ret == 0)
 	{
 		free(value);
 		free(ret);
