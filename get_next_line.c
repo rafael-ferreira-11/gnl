@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/23 11:01:21 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/23 11:03:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	*ft_calloc(size_t num, size_t size)
 char *get_next_line(int fd)
 {
 	int buffer;
-	static char *value;
+	char *value;
 	char *ret;
 
 	#ifdef BUFFER_SIZE
