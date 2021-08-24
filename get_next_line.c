@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 10:36:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 10:37:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,7 @@ char *get_next_line(int fd)
 
 			if (value[index] == '\n')
 			{
-				overflow = malloc(sizeof(char *));
-				*overflow = 0;
-				while (index < buffer && value[index] != 0)
-				{
-					overflow = ft_strjoin(overflow, value[index]);
-					index++;
-				}
-				free(value);
+
 				return (ret);
 			}
 
