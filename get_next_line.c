@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 10:37:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 10:37:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char *get_next_line(int fd)
 	static char *value;
 	char *ret;
 	int	index;
-	static char *overflow;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
