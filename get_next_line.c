@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 09:31:28 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 09:38:57 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,15 @@ char *get_next_line(int fd)
 		value = calloc(buffer, 1);
 	ret = malloc(sizeof(char *));
 	*ret = 0;
-	if (!value)
-		return (0);
+	index = 0;
+	if (value[index])
+	{
+		while(value[index])
+		{
+			ret = ft_strjoin(ret, value[index]);
+			index++;
+		}
+	}
 	while (read(fd, value, buffer) > 0)
 	{
 		//printf("value: %i ret: %s\n", (int)*value, ret);
@@ -104,8 +111,11 @@ char *get_next_line(int fd)
 			ret = ft_strjoin(ret, value[index]);
 			index++;
 
-			if (*value == '\n')
-			return (ret);
+			if (value[index] == '\n')
+			{
+				*value = value[index];
+				return (ret);
+			}
 		}
 	}
 	if (*ret == 0)
