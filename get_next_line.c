@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 09:46:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 10:03:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,21 @@ char *get_next_line(int fd)
 		return (0);
 	while (read(fd, value, buffer) > 0)
 	{
-	//printf("value: %i ret: %s\n", (int)*value, ret);
-	index = 0;
+		//printf("value: %i ret: %s\n", (int)*value, ret);
+		index = 0;
 
-	while(index < buffer)
-	{
-		ret = ft_strjoin(ret, value[index]);
-		index++;
-	}
+		while(index < buffer)
+		{
+			if (!value[index])
+				break;
+			ret = ft_strjoin(ret, value[index]);
 
-	if (*value == '\n')
-		return (ret);
+			if (value[index] == '\n')
+				return (ret);
+
+			index++;
+		}
+
 	}
 	if (*ret == 0)
 	{
