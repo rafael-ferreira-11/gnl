@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 10:03:10 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 10:26:16 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ char *get_next_line(int fd)
 	static char *value;
 	char *ret;
 	int	index;
+	int offset;
+	static char *overflow;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
@@ -89,13 +91,25 @@ char *get_next_line(int fd)
 		value = calloc(buffer, 1);
 	ret = malloc(sizeof(char *));
 	*ret = 0;
+	if(!overflow) {
+		overflow = malloc(sizeof(char *));
+		*overflow = 0;
+	}
 	if (!value)
 		return (0);
+
+	if (overflow)
+	{
+		offset = 0;
+		while (overflow[offset])
+		{
+			ret = ft_strjoin(ret, overflow[offset]);
+			offset++;
+		}
+	}
 	while (read(fd, value, buffer) > 0)
 	{
-		//printf("value: %i ret: %s\n", (int)*value, ret);
-		index = 0;
-
+		index = offset;
 		while(index < buffer)
 		{
 			if (!value[index])
@@ -103,11 +117,18 @@ char *get_next_line(int fd)
 			ret = ft_strjoin(ret, value[index]);
 
 			if (value[index] == '\n')
+			{
+				index++;
+				while (index < buffer && value[index])
+				{
+					overflow = ft_strjoin(overflow, value[index]);
+					index++;
+				}
 				return (ret);
+			}
 
 			index++;
 		}
-
 	}
 	if (*ret == 0)
 	{
