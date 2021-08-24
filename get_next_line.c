@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 09:03:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 09:23:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ char *get_next_line(int fd)
 	int buffer;
 	static char *value;
 	char *ret;
+	int	index;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
@@ -100,7 +101,14 @@ char *get_next_line(int fd)
 	while (read(fd, value, buffer) > 0)
 	{
 	//printf("value: %i ret: %s\n", (int)*value, ret);
-	ret = ft_strjoin(ret, value);
+	index = 0;
+
+	while(index < buffer)
+	{
+		ret = ft_strjoin(ret, value[index]);
+		index++;
+	}
+
 	if (*value == '\n')
 		return (ret);
 	}
