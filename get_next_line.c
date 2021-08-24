@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 10:31:07 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 10:31:38 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ char *get_next_line(int fd)
 		overflow = malloc(sizeof(char *));
 		*overflow = 0;
 	}
+	offset = 0;
 	if (!value)
 		return (0);
 
