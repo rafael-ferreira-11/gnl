@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 10:53:03 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 10:54:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ char *get_next_line(int fd)
 		while(index < buffer)
 		{
 			if (!value[index])
+			{
+				free(value);
 				break;
+			}
+
 			ret = ft_strjoin(ret, value[index]);
 
 			if (value[index] == '\n')
