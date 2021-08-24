@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 09:26:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 09:31:28 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,12 @@ char	*ft_strjoin(char *s1, char s2)
 		res[i] = s1[i];
 		i++;
 	}
-
-
-		res[i] = s2;
-		i++;
+	res[i] = s2;
+	i++;
 	res[i] = '\0';
 	free(s1);
 	return (res);
 }
-
 
 void	*ft_memset(void *s, int c, size_t n)
 {
@@ -96,17 +93,20 @@ char *get_next_line(int fd)
 		return (0);
 	while (read(fd, value, buffer) > 0)
 	{
-	//printf("value: %i ret: %s\n", (int)*value, ret);
-	index = 0;
+		//printf("value: %i ret: %s\n", (int)*value, ret);
+		index = 0;
 
-	while(index < buffer)
-	{
-		ret = ft_strjoin(ret, value[index]);
-		index++;
-	}
+		while(index < buffer)
+		{
+			if(!value[index])
+				break;
 
-	if (*value == '\n')
-		return (ret);
+			ret = ft_strjoin(ret, value[index]);
+			index++;
+
+			if (*value == '\n')
+			return (ret);
+		}
 	}
 	if (*ret == 0)
 	{
