@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/23 11:07:16 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 08:36:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ size_t	ft_strlen(const char *s)
 }
 
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*res;
 	int		i;
@@ -49,6 +49,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	res[i] = '\0';
+	free(s1);
+	free(s2);
 	return (res);
 }
 
@@ -81,7 +83,7 @@ char *get_next_line(int fd)
 {
 	int buffer;
 	char *value;
-	static char *ret;
+	char *ret;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
