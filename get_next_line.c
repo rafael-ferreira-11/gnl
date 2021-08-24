@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/24 11:02:19 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/24 11:02:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,12 @@ char *get_next_line(int fd)
 	if (!value || !ret)
 		return (0);
 	index = 0;
-	while(value[index]) {
+	if (value)
+	{
+		while(value[index]) {
 		ret = ft_strjoin(ret, value[index]);
 		index++;
+	}
 	}
 	value = calloc(buffer, 1);
 	while (read(fd, value, buffer) > 0)
