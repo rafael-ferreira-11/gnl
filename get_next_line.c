@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/25 09:48:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/25 10:02:01 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*ft_calloc(size_t num, size_t size)
 	return (res);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	int buffer;
 	static char *value;
@@ -93,7 +93,7 @@ char *get_next_line(int fd)
 	offset = 0;
 	if (trigger)
 	{
-		while (trigger < buffer)
+		while (trigger < buffer && value[trigger])
 		{
 			ret = ft_strjoin(ret, value[trigger]);
 			trigger++;
@@ -108,16 +108,14 @@ char *get_next_line(int fd)
 	{
 		if(offset)
 		{
-		index = offset;
-		offset = 0;
+			index = offset;
+			offset = 0;
 		}
 		else
 			index = 0;
 		while(index < buffer && value[index])
 		{
-
 			ret = ft_strjoin(ret, value[index]);
-
 			if (value[index] == '\n')
 			{
 				index++;
@@ -125,7 +123,6 @@ char *get_next_line(int fd)
 					trigger = index;
 				return (ret);
 			}
-
 			index++;
 		}
 		value = calloc(buffer,1);
