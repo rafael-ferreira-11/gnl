@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/25 08:57:02 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/25 09:05:02 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ char *get_next_line(int fd)
 	int buffer;
 	static char *value;
 	char *ret;
-	int	index;
-	static char *reserve;
+	static int	index;
 
 	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
@@ -92,12 +91,11 @@ char *get_next_line(int fd)
 	*ret = 0;
 	if (!value || !ret)
 		return (0);
-	index = 0;
-	if(!reserve)
-		reserve = calloc(buffer,1);
-	else
-		while(reserve[index]) {
-		ret = ft_strjoin(ret, reserve[index]);
+	if(index != 0)
+		index++;
+	while(value[index] && index < buffer) {
+		if(value[index] > 0 && value[index] < 127)
+			ret = ft_strjoin(ret, value[index]);
 		index++;
 	}
 	value = calloc(buffer, 1);
@@ -115,7 +113,6 @@ char *get_next_line(int fd)
 
 			if (value[index] == '\n')
 			{
-				reserve = value + index + 1;
 				return (ret);
 			}
 
