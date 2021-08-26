@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/26 11:15:25 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 11:16:14 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ char	*get_next_line(int fd)
 			}
 			index++;
 		}
+		free(value);
+		value = calloc(BUFFER_SIZE, 1);
 	}
 	if (*ret == 0)
 	{
