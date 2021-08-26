@@ -6,12 +6,11 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/26 10:18:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 10:23:10 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 size_t	ft_strlen(const char *s)
 {
@@ -93,7 +92,6 @@ char	*get_next_line(int fd)
 	offset = 0;
 	if (trigger)
 	{
-		//printf("Trigger %d \n",trigger);
 		while (trigger < buffer && value[trigger])
 		{
 			ret = ft_strjoin(ret, value[trigger]);
@@ -109,25 +107,20 @@ char	*get_next_line(int fd)
 		}
 		trigger = 0;
 	}
-	//printf("ret  %s \n", ret);
 	value = calloc(buffer, 1);
 	if(!value)
 		return (0);
 	while (read(fd, value, buffer) > 0)
 	{
-		//printf("read %s", value);
-
 			index = 0;
 		while(index < buffer && value[index])
 		{
-			//printf("char %c %i\n", value[index], (int)value[index]);
 			ret = ft_strjoin(ret, value[index]);
 			if (value[index] == '\n')
 			{
 				index++;
 				if(index < buffer && value[index])
 					trigger = index;
-				//printf("trigger  %d", trigger);
 				return (ret);
 			}
 			index++;
