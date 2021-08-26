@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/26 10:38:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 10:52:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,14 @@
 
 char	*get_next_line(int fd)
 {
-	int			buffer;
 	static char	*value;
-	char 		*ret;
+	char		*ret;
 	int			index;
-	int 		offset;
+	int			offset;
 	static int	trigger;
 
-	#ifdef BUFFER_SIZE
-		buffer = BUFFER_SIZE;
-	#else
-		buffer = 1;
-	#endif
-	if (buffer < 0)
-		buffer = 1;
-	if (fd < 0 || buffer <= 0)
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	ret = malloc(sizeof(char *));
 	*ret = 0;
@@ -37,13 +30,13 @@ char	*get_next_line(int fd)
 	offset = 0;
 	if (trigger)
 	{
-		while (trigger < buffer && value[trigger])
+		while (trigger < BUFFER_SIZE && value[trigger])
 		{
 			ret = ft_strjoin(ret, value[trigger]);
 			if (value[trigger] == '\n')
 			{
 				trigger++;
-				if(!(trigger < buffer && value[trigger]))
+				if (!(trigger < BUFFER_SIZE && value[trigger]))
 					trigger = 0;
 				return (ret);
 			}
@@ -52,26 +45,26 @@ char	*get_next_line(int fd)
 		}
 		trigger = 0;
 	}
-	value = calloc(buffer, 1);
-	if(!value)
+	value = calloc(BUFFER_SIZE, 1);
+	if (!value)
 		return (0);
-	while (read(fd, value, buffer) > 0)
+	while (read(fd, value, BUFFER_SIZE) > 0)
 	{
-			index = 0;
-		while(index < buffer && value[index])
+		index = 0;
+		while (index < BUFFER_SIZE && value[index])
 		{
 			ret = ft_strjoin(ret, value[index]);
 			if (value[index] == '\n')
 			{
 				index++;
-				if(index < buffer && value[index])
+				if (index < BUFFER_SIZE && value[index])
 					trigger = index;
 				return (ret);
 			}
 			index++;
 		}
 		free(value);
-		value = calloc(buffer,1);
+		value = calloc(BUFFER_SIZE, 1);
 	}
 	if (*ret == 0)
 	{
