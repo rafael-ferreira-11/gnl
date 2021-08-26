@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/26 10:52:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 11:05:41 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ char	*get_next_line(int fd)
 	static char	*value;
 	char		*ret;
 	int			index;
-	int			offset;
 	static int	trigger;
-
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
@@ -27,7 +25,6 @@ char	*get_next_line(int fd)
 	*ret = 0;
 	if (!ret)
 		return (0);
-	offset = 0;
 	if (trigger)
 	{
 		while (trigger < BUFFER_SIZE && value[trigger])
@@ -41,7 +38,6 @@ char	*get_next_line(int fd)
 				return (ret);
 			}
 			trigger++;
-			offset++;
 		}
 		trigger = 0;
 	}
