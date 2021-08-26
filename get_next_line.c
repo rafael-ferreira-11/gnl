@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/26 10:29:14 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 10:37:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 char	*get_next_line(int fd)
 {
-	int buffer;
-	static char *value;
-	char *ret;
-	int	index;
-	int offset;
-	static int trigger;
+	int			buffer;
+	static char	*value;
+	char 		*ret;
+	int			index;
+	int 		offset;
+	static int	trigger;
 
-	#ifdef BUFFER_SIZE
-		buffer = BUFFER_SIZE;
-	#else
-		buffer = 1;
+	#ifndef BUFFER_SIZE && BUFFER_SIZE > 0
+		BUFFER_SIZE = 1;
 	#endif
 	if (fd < 0 || buffer <= 0)
 		return (0);
