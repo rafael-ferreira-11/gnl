@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/26 10:38:04 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/26 10:38:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@ char	*get_next_line(int fd)
 	int 		offset;
 	static int	trigger;
 
-	#ifdef BUFFER_SIZE && BUFFER_SIZE > 0
+	#ifdef BUFFER_SIZE
 		buffer = BUFFER_SIZE;
 	#else
 		buffer = 1;
 	#endif
+	if (buffer < 0)
+		buffer = 1;
 	if (fd < 0 || buffer <= 0)
 		return (0);
 	ret = malloc(sizeof(char *));
