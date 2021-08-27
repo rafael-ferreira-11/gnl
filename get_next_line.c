@@ -6,25 +6,11 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/27 10:48:26 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 10:50:04 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*get_prev_buffer(int index, int size, char *value, char *ret)
-{
-	while (index < size && value[index])
-	{
-		ret = ft_strjoin(ret, value[index]);
-		if (value[index] == '\n')
-		{
-			return (ret);
-		}
-		index++;
-	}
-	return (ret);
-}
 
 char	*get_next_line(int fd)
 {
@@ -41,10 +27,17 @@ char	*get_next_line(int fd)
 		return (0);
 	if (trigger)
 	{
-		ret = get_prev_buffer(trigger, BUFFER_SIZE, value, ret);
-		if (!(trigger++ < BUFFER_SIZE && value[trigger]))
-				index = 0;
-			return (ret);
+		while (trigger < BUFFER_SIZE && value[trigger])
+		{
+			ret = ft_strjoin(ret, value[trigger]);
+			if (value[trigger] == '\n')
+			{
+				if (!(trigger++ < BUFFER_SIZE && value[trigger]))
+					trigger = 0;
+				return (ret);
+			}
+			trigger++;
+		}
 		trigger = 0;
 	}
 	value = calloc(BUFFER_SIZE, 1);
