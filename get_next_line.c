@@ -6,33 +6,11 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/27 11:53:31 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 11:56:06 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*get_reserve(int index, int size, char *value)
-{
-	char	*res;
-
-	res = malloc(sizeof(char *));
-	*res = 0;
-
-	while (index < size && value[index])
-	{
-		res = ft_strjoin(res, value[index]);
-		if (value[index] == '\n')
-		{
-			if (!(index++ < size && value[index]))
-				index = 0;
-			return (res);
-		}
-		index++;
-	}
-	index = 0;
-	return (res);
-}
 
 char	*get_next_line(int fd)
 {
@@ -49,8 +27,18 @@ char	*get_next_line(int fd)
 		return (0);
 	if (trigger)
 	{
-		ret = get_reserve(trigger, BUFFER_SIZE, value);
-
+		while (trigger < BUFFER_SIZE && value[trigger])
+		{
+			ret = ft_strjoin(ret, value[trigger]);
+			if (value[trigger] == '\n')
+			{
+				if (!(trigger++ < BUFFER_SIZE && value[trigger]))
+					trigger = 0;
+				return (ret);
+			}
+			trigger++;
+		}
+		trigger = 0;
 	}
 	value = calloc(BUFFER_SIZE, 1);
 	if (!value)
