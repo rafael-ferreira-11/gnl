@@ -6,11 +6,31 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/27 11:08:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 11:16:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char	*get_reserve(int trigger, int size, char *ret, char *value)
+{
+	if (trigger)
+	{
+		while (trigger < size && value[trigger])
+		{
+			ret = ft_strjoin(ret, value[trigger]);
+			if (value[trigger] == '\n')
+			{
+				if (!(trigger++ < size && value[trigger]))
+					trigger = 0;
+				return (ret);
+			}
+			trigger++;
+		}
+		trigger = 0;
+	}
+	return (ret);
+}
 
 char	*get_next_line(int fd)
 {
@@ -25,21 +45,9 @@ char	*get_next_line(int fd)
 	*ret = 0;
 	if (!ret)
 		return (0);
-	if (trigger)
-	{
-		while (trigger < BUFFER_SIZE && value[trigger])
-		{
-			ret = ft_strjoin(ret, value[trigger]);
-			if (value[trigger] == '\n')
-			{
-				if (!(trigger++ < BUFFER_SIZE && value[trigger]))
-					trigger = 0;
-				return (ret);
-			}
-			trigger++;
-		}
-		trigger = 0;
-	}
+	ret = get_reserve(trigger, BUFFER_SIZE, ret, value);
+	if(*ret == '\n')
+		return (ret);
 	value = calloc(BUFFER_SIZE, 1);
 	if (!value)
 		return (0);
