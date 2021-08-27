@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/27 10:46:24 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 10:48:26 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*get_prev_buffer(int index, int size, char *value, char *ret)
 		ret = ft_strjoin(ret, value[index]);
 		if (value[index] == '\n')
 		{
-			if (!(index++ < size && value[index]))
-				index = 0;
 			return (ret);
 		}
 		index++;
@@ -44,6 +42,9 @@ char	*get_next_line(int fd)
 	if (trigger)
 	{
 		ret = get_prev_buffer(trigger, BUFFER_SIZE, value, ret);
+		if (!(trigger++ < BUFFER_SIZE && value[trigger]))
+				index = 0;
+			return (ret);
 		trigger = 0;
 	}
 	value = calloc(BUFFER_SIZE, 1);
