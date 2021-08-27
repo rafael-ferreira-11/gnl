@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/27 10:56:50 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 10:57:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,10 @@ char	*get_next_line(int fd)
 		free(value);
 		value = calloc(BUFFER_SIZE, 1);
 	}
-
+	if (*ret == 0)
+	{
+		free(ret);
+		return (0);
+	}
 	return (ret);
 }
