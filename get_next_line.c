@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/27 11:51:37 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/27 11:53:31 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@ char	*get_reserve(int index, int size, char *value)
 	*res = 0;
 
 	while (index < size && value[index])
+	{
+		res = ft_strjoin(res, value[index]);
+		if (value[index] == '\n')
 		{
-			res = ft_strjoin(res, value[index]);
-			if (value[index] == '\n')
-			{
-				if (!(index++ < size && value[index]))
-					index = 0;
-				return (res);
-			}
-			index++;
+			if (!(index++ < size && value[index]))
+				index = 0;
+			return (res);
 		}
+		index++;
+	}
+	index = 0;
 	return (res);
 }
 
@@ -49,9 +50,7 @@ char	*get_next_line(int fd)
 	if (trigger)
 	{
 		ret = get_reserve(trigger, BUFFER_SIZE, value);
-		if (*ret == '\n')
-			return (ret);
-		trigger = 0;
+
 	}
 	value = calloc(BUFFER_SIZE, 1);
 	if (!value)
