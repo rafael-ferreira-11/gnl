@@ -6,12 +6,11 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 14:12:59 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 14:25:11 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int	read_line(int size, char *value, char **ret, int *trigger)
 {
@@ -28,6 +27,23 @@ int	read_line(int size, char *value, char **ret, int *trigger)
 			return (1);
 		}
 		index++;
+	}
+	free(value);
+	return (0);
+}
+
+int	read_reserve(int size, char *value, char **ret, int *trigger)
+{
+	while (*trigger < size && value[*trigger])
+	{
+		*ret = ft_strjoin(*ret, value[*trigger]);
+		if (value[*trigger] == '\n')
+		{
+			if (!(*trigger++ < size && value[*trigger]))
+				*trigger = 0;
+			return (1);
+		}
+		*trigger = *trigger + 1;
 	}
 	return (0);
 }
@@ -46,17 +62,8 @@ char	*get_next_line(int fd)
 		return (0);
 	if (trigger)
 	{
-		while (trigger < BUFFER_SIZE && value[trigger])
-		{
-			ret = ft_strjoin(ret, value[trigger]);
-			if (value[trigger] == '\n')
-			{
-				if (!(trigger++ < BUFFER_SIZE && value[trigger]))
-					trigger = 0;
-				return (ret);
-			}
-			trigger++;
-		}
+		if (read_reserve(BUFFER_SIZE, value, &ret, &trigger) == 1)
+			return (ret);
 		trigger = 0;
 	}
 	value = calloc(BUFFER_SIZE, 1);
@@ -66,7 +73,6 @@ char	*get_next_line(int fd)
 	{
 		if (read_line(BUFFER_SIZE, value, &ret, &trigger) == 1)
 			return (ret);
-		free(value);
 		value = calloc(BUFFER_SIZE, 1);
 	}
 	if (*ret == 0)
