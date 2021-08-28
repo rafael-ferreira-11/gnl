@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 14:27:51 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 14:45:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,20 @@ int	read_line(int size, char *value, char **ret, int *trigger)
 
 int	read_reserve(int size, char *value, char **ret, int *trigger)
 {
-	while (*trigger < size && value[*trigger])
+	if (*trigger)
 	{
-		*ret = ft_strjoin(*ret, value[*trigger]);
-		if (value[*trigger] == '\n')
+		while (*trigger < size && value[*trigger])
 		{
+			*ret = ft_strjoin(*ret, value[*trigger]);
+			if (value[*trigger] == '\n')
+			{
+				*trigger = *trigger + 1;
+				if (!(*trigger < size && value[*trigger]))
+					*trigger = 0;
+				return (1);
+			}
 			*trigger = *trigger + 1;
-			if (!(*trigger < size && value[*trigger]))
-				*trigger = 0;
-			return (1);
 		}
-		*trigger = *trigger + 1;
 	}
 	return (0);
 }
@@ -61,12 +64,9 @@ char	*get_next_line(int fd)
 	*ret = 0;
 	if (!ret)
 		return (0);
-	if (trigger)
-	{
-		if (read_reserve(BUFFER_SIZE, value, &ret, &trigger) == 1)
-			return (ret);
-		trigger = 0;
-	}
+	if (read_reserve(BUFFER_SIZE, value, &ret, &trigger) == 1)
+		return (ret);
+	trigger = 0;
 	value = calloc(BUFFER_SIZE, 1);
 	if (!value)
 		return (0);
