@@ -6,17 +6,36 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 13:12:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 14:12:59 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+
+int	read_line(int size, char *value, char **ret, int *trigger)
+{
+	int	index;
+
+	index = 0;
+	while (index < size && value[index])
+	{
+		*ret = ft_strjoin(*ret, value[index]);
+		if (value[index] == '\n')
+		{
+			if (index++ < size && value[index])
+				*trigger = index;
+			return (1);
+		}
+		index++;
+	}
+	return (0);
+}
 
 char	*get_next_line(int fd)
 {
 	static char	*value;
 	char		*ret;
-	int			index;
 	static int	trigger;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -45,18 +64,8 @@ char	*get_next_line(int fd)
 		return (0);
 	while (read(fd, value, BUFFER_SIZE) > 0)
 	{
-		index = 0;
-		while (index < BUFFER_SIZE && value[index])
-		{
-			ret = ft_strjoin(ret, value[index]);
-			if (value[index] == '\n')
-			{
-				if (index++ < BUFFER_SIZE && value[index])
-					trigger = index;
-				return (ret);
-			}
-			index++;
-		}
+		if (read_line(BUFFER_SIZE, value, &ret, &trigger) == 1)
+			return (ret);
 		free(value);
 		value = calloc(BUFFER_SIZE, 1);
 	}
