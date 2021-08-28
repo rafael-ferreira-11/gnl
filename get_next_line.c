@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 11:06:49 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 11:41:07 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	*get_next_line(int fd)
 		trigger = 0;
 	}
 	value = calloc(BUFFER_SIZE, 1);
+	if (!value)
+		return (0);
 	while (read(fd, value, BUFFER_SIZE) > 0)
 	{
 		index = 0;
@@ -55,6 +57,7 @@ char	*get_next_line(int fd)
 			}
 			index++;
 		}
+		free(value);
 		value = calloc(BUFFER_SIZE, 1);
 	}
 	if (*ret == 0)

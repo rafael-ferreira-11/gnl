@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:12 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/26 10:28:05 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 11:29:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,30 @@ void	*ft_calloc(size_t num, size_t size)
 	if (!res)
 		return (0);
 	ft_memset(res, 0, num * size);
+	return (res);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*res;
+	size_t	index;
+
+	if (!s)
+		return (0);
+	if ((size_t)start > ft_strlen(s))
+		return (0);
+	if (ft_strlen(s) - start > len)
+		res = (char *)malloc(len + 1);
+	else
+		res = (char *)malloc(ft_strlen(s) - start + 1);
+	if (!res)
+		return (0);
+	index = 0;
+	while (index < len)
+	{
+		res[index] = s[start + index];
+		index++;
+	}
+	res[index] = 0;
 	return (res);
 }
