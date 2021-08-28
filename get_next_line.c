@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 11:03:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 11:04:46 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char	*get_next_line(int fd)
 	if (trigger)
 	{
 		ret = copy_reserve(&trigger, BUFFER_SIZE, value, ret);
+		if (*ret == '\n')
+			return (ret);
 		trigger = 0;
 	}
 	value = calloc(BUFFER_SIZE, 1);
