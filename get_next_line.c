@@ -6,30 +6,11 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 11:04:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 11:06:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*copy_reserve(int *tr, int size, char *value, char *r)
-{
-	int	t;
-
-	t = *tr;
-	while (t < size && value[t])
-	{
-		r = ft_strjoin(r, value[t]);
-		if (value[t] == '\n')
-		{
-			if (!(t++ < size && value[t]))
-				t = 0;
-			return (r);
-		}
-		t++;
-	}
-	return (r);
-}
 
 char	*get_next_line(int fd)
 {
@@ -46,9 +27,17 @@ char	*get_next_line(int fd)
 		return (0);
 	if (trigger)
 	{
-		ret = copy_reserve(&trigger, BUFFER_SIZE, value, ret);
-		if (*ret == '\n')
-			return (ret);
+		while (trigger < BUFFER_SIZE && value[trigger])
+		{
+			ret = ft_strjoin(ret, value[trigger]);
+			if (value[trigger] == '\n')
+			{
+				if (!(trigger++ < BUFFER_SIZE && value[trigger]))
+					trigger = 0;
+				return (ret);
+			}
+			trigger++;
+		}
 		trigger = 0;
 	}
 	value = calloc(BUFFER_SIZE, 1);
