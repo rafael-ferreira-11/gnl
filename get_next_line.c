@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 14:45:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 14:50:39 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,17 @@ int	read_reserve(int size, char *value, char **ret, int *trigger)
 	return (0);
 }
 
+char	*check_and_free(char *ret, char *value)
+{
+	if (*ret == 0)
+	{
+		free(ret);
+		return (0);
+	}
+	free(value);
+	return (ret);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*value;
@@ -76,11 +87,5 @@ char	*get_next_line(int fd)
 			return (ret);
 		value = calloc(BUFFER_SIZE, 1);
 	}
-	if (*ret == 0)
-	{
-		free(ret);
-		return (0);
-	}
-	free(value);
-	return (ret);
+	return (check_and_free(ret, value));
 }
