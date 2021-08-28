@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 14:25:11 by user42           ###   ########.fr       */
+/*   Updated: 2021/08/28 14:26:48 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	read_reserve(int size, char *value, char **ret, int *trigger)
 		*ret = ft_strjoin(*ret, value[*trigger]);
 		if (value[*trigger] == '\n')
 		{
-			if (!(*trigger++ < size && value[*trigger]))
+			if (!((*trigger+1) < size && value[*trigger]))
 				*trigger = 0;
 			return (1);
 		}
