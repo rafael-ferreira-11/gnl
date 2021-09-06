@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 14:12:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 14:44:43 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	read_line(int size, char *value, char **ret, int *trigger)
 		}
 		index++;
 	}
-	free(value);
 	return (0);
 }
 
@@ -85,7 +84,6 @@ char	*get_next_line(int fd)
 	{
 		if (read_line(BUFFER_SIZE, value, &ret, &trigger) == 1)
 			return (ret);
-		value = ft_calloc(BUFFER_SIZE, 1);
 	}
 	return (check_and_free(ret, value));
 }
