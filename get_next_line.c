@@ -6,11 +6,12 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 18:14:57 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 18:50:58 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "stdio.h"
 
 int	read_line(int size, char *value, char **ret, int *trigger)
 {
@@ -28,6 +29,7 @@ int	read_line(int size, char *value, char **ret, int *trigger)
 		}
 		index++;
 	}
+	printf("a");
 	return (0);
 }
 
@@ -82,7 +84,10 @@ char	*get_next_line(int fd)
 	if (!value)
 		return (0);
 	while (read(fd, value, BUFFER_SIZE) > 0)
+	{
 		if (read_line(BUFFER_SIZE, value, &ret, &trigger) == 1)
-			break;
+			break ;
+		ft_memset(value, 0, BUFFER_SIZE);
+	}
 	return (check_and_free(ret, value));
 }
