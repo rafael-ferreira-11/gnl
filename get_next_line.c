@@ -6,12 +6,11 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 18:50:58 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 18:51:42 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "stdio.h"
 
 int	read_line(int size, char *value, char **ret, int *trigger)
 {
@@ -29,7 +28,6 @@ int	read_line(int size, char *value, char **ret, int *trigger)
 		}
 		index++;
 	}
-	printf("a");
 	return (0);
 }
 
