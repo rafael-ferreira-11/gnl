@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 15:20:38 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 17:49:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*check_and_free(char *ret, char *value)
 	if (*ret == 0)
 	{
 		free(ret);
-		return (0);
+
 	}
 	free(value);
 	return (ret);
