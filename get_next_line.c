@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 22:14:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 22:15:21 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int	read_reserve(int size, char *value, char **ret, int *trigger)
 
 char	*check_and_free(char *ret, char *value, int t)
 {
+	if (!t)
+		free(value);
 	if (*ret == 0)
 	{
 		free(ret);
 		return (0);
 	}
-	if (!t)
-		free(value);
 	return (ret);
 }
 
@@ -76,7 +76,7 @@ char	*get_next_line(int fd)
 		return (0);
 	*ret = 0;
 	if (read_reserve(BUFFER_SIZE, value, &ret, &trigger) == 1)
-		return (check_and_free(ret, value, trigger));
+		return (ret);
 	trigger = 0;
 	value = ft_calloc(BUFFER_SIZE, 1);
 	if (!value)
