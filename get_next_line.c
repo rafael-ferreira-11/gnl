@@ -38,12 +38,17 @@ char	*get_line(char *str)
 		return (0);
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (!(rtn = malloc(sizeof(char) * (i + 1))))
+	if (!(rtn = malloc(sizeof(char) * (i + 2))))
 		return (0);
 	i = 0;
 	while (str[i] && str[i] != '\n')
 	{
 		rtn[i] = str[i];
+		i++;
+	}
+	if (str[i] == '\n')
+	{
+		rtn[i] = '\n';
 		i++;
 	}
 	rtn[i] = '\0';
@@ -77,6 +82,14 @@ char	*get_next_line(int fd)
 	free(buff);
 	line = get_line(save);
 	save = get_save(save);
-
+	if (reader == 0)
+	{
+		if (line[0])
+			return (line);
+		free(line);
+		if (save)
+			free(save);
+		return (0);
+	}
 	return (line);
 }
