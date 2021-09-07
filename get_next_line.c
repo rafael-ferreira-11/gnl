@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 22:17:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 22:18:20 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,9 @@ int	read_reserve(int size, char *value, char **ret, int *trigger)
 	return (0);
 }
 
-char	*check_and_free(char *ret, char *value, int t)
+char	*check_and_free(char *ret, char *value)
 {
-	if (!t)
-		free(value);
+	free(value);
 	if (*ret == 0)
 	{
 		free(ret);
@@ -90,5 +89,5 @@ char	*get_next_line(int fd)
 		}
 		ft_memset(value, 0, BUFFER_SIZE);
 	}
-	return (check_and_free(ret, value, trigger));
+	return (check_and_free(ret, value));
 }
