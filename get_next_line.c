@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 22:18:20 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 22:23:09 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	*get_next_line(int fd)
 	{
 		if (read_line(BUFFER_SIZE, value, &ret, &trigger) == 1)
 		{
+			if (!trigger)
+				free(value);
 			return (ret);
 		}
 		ft_memset(value, 0, BUFFER_SIZE);
