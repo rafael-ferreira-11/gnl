@@ -1,99 +1,82 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 22:24:30 by user42           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 #include <stdio.h>
 
-int	read_line(int size, char *value, char **ret, int *trigger)
+char	*get_save(char *save)
 {
-	int	index;
+	char	*rtn;
+	int		i;
+	int		j;
 
-	index = 0;
-	while (index < size && value[index])
+	i = 0;
+	j = 0;
+	if (!save)
+		return (0);
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i])
 	{
-		*ret = ft_strjoin(*ret, value[index]);
-		if (value[index] == '\n')
-		{
-			if (index++ < size && value[index])
-				*trigger = index;
-			return (1);
-		}
-		index++;
-	}
-	return (0);
-}
-
-int	read_reserve(int size, char *value, char **ret, int *trigger)
-{
-	if (*trigger)
-	{
-		while (*trigger < size && value[*trigger])
-		{
-			*ret = ft_strjoin(*ret, value[*trigger]);
-			if (value[*trigger] == '\n')
-			{
-				*trigger = *trigger + 1;
-				if (!(*trigger < size && value[*trigger]))
-					*trigger = 0;
-				return (1);
-			}
-			*trigger = *trigger + 1;
-		}
-	}
-	return (0);
-}
-
-char	*check_and_free(char *ret, char *value)
-{
-	free(value);
-	if (*ret == 0)
-	{
-		free(ret);
+		free(save);
 		return (0);
 	}
-	return (ret);
+	if (!(rtn = malloc(sizeof(char) * ((ft_strlen(save) - i) + 1))))
+		return (0);
+	i++;
+	while (save[i])
+		rtn[j++] = save[i++];
+	rtn[j] = '\0';
+	free(save);
+	return (rtn);
+}
+
+char	*get_line(char *str)
+{
+	int		i;
+	char	*rtn;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i] && str[i] != '\n')
+		i++;
+	if (!(rtn = malloc(sizeof(char) * (i + 1))))
+		return (0);
+	i = 0;
+	while (str[i] && str[i] != '\n')
+	{
+		rtn[i] = str[i];
+		i++;
+	}
+	rtn[i] = '\0';
+	return (rtn);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*value;
-	char		*ret;
-	static int	trigger;
+	char			*buff;
+	static char		*save;
+	static char		*line;
+	int				reader;
 
+	reader = 1;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	ret = malloc(sizeof(char *));
-	if (!ret)
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
 		return (0);
-	*ret = 0;
-	if (read_reserve(BUFFER_SIZE, value, &ret, &trigger) == 1)
+	while (!has_return(save) && reader != 0)
 	{
-		if (!trigger)
-			free(value);
-		return (ret);
-	}
-	trigger = 0;
-	value = ft_calloc(BUFFER_SIZE, 1);
-	if (!value)
-		return (0);
-	while (read(fd, value, BUFFER_SIZE) > 0)
-	{
-		if (read_line(BUFFER_SIZE, value, &ret, &trigger) == 1)
+		reader = read(fd, buff, BUFFER_SIZE);
+		if (reader == -1)
 		{
-			if (!trigger)
-				free(value);
-			return (ret);
+			free(buff);
+			return (0);
 		}
-		ft_memset(value, 0, BUFFER_SIZE);
+		buff[reader] = '\0';
+		save = join_str(save, buff);
 	}
-	return (check_and_free(ret, value));
+	free(buff);
+	line = get_line(save);
+	save = get_save(save);
+
+	return (line);
 }

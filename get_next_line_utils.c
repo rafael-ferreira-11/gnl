@@ -1,70 +1,71 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/14 12:16:12 by raferrei          #+#    #+#             */
-/*   Updated: 2021/08/28 14:05:38 by user42           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t		ft_strlen(const char *s)
 {
-	size_t	length;
+	int i;
 
-	length = 0;
-	while (*(s++) != '\0')
-		length++;
-	return (length);
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
+		i++;
+	return (i);
 }
 
-char	*ft_strjoin(char *s1, char s2)
+void		*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char	*res;
-	int		i;
+	char *d;
+	char *s;
 
-	if (!s1 || !s2)
-		return (0);
-	res = (char *)malloc(ft_strlen(s1) + 1 + 1);
-	if (!res)
-		return (0);
-	i = 0;
-	while (s1[i])
+	d = (char *)dst;
+	s = (char *)src;
+	if (dst == src)
+		return (dst);
+	if (s < d)
 	{
-		res[i] = s1[i];
+		while (len--)
+			*(d + len) = *(s + len);
+		return (dst);
+	}
+	while (len--)
+		*d++ = *s++;
+	return (dst);
+}
+
+char		*join_str(char const *s1, char const *s2)
+{
+	size_t	s1_len;
+	size_t	s2_len;
+	size_t	stot_len;
+	char	*rtn;
+
+	if (!s1 && !s2)
+		return (0);
+	s1_len = ft_strlen((char *)s1);
+	s2_len = ft_strlen((char *)s2);
+	stot_len = s1_len + s2_len + 1;
+	rtn = malloc(sizeof(char) * stot_len);
+	if (!rtn)
+		return (0);
+	ft_memmove(rtn, s1, s1_len);
+	ft_memmove(rtn + s1_len, s2, s2_len);
+	rtn[stot_len - 1] = '\0';
+	free((char *)s1);
+	return (rtn);
+}
+
+int			has_return(char *str)
+{
+	int i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (1);
 		i++;
 	}
-	res[i] = s2;
-	i++;
-	res[i] = '\0';
-	free(s1);
-	return (res);
-}
-
-void	*ft_memset(void *s, int c, size_t n)
-{
-	size_t	index;
-
-	index = 0;
-	while (index < n)
-	{
-		((unsigned char *)s)[index] = c;
-		index++;
-	}
-	return (s);
-}
-
-void	*ft_calloc(size_t num, size_t size)
-{
-	void	*res;
-
-	res = malloc(num * size);
-	if (!res)
-		return (0);
-	ft_memset(res, 0, num * size);
-	return (res);
+	return (0);
 }
