@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/14 12:16:00 by raferrei          #+#    #+#             */
-/*   Updated: 2021/09/06 22:09:18 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/06 22:10:53 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ int	read_reserve(int size, char *value, char **ret, int *trigger)
 
 char	*check_and_free(char *ret, char *value, int t)
 {
-	if (!t)
-		free(value);
 	if (*ret == 0)
 	{
 		free(ret);
 		return (0);
 	}
+	if (!t)
+		free(value);
 	return (ret);
 }
 
