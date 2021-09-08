@@ -18,7 +18,8 @@ char	*get_save(char *save)
 		free(save);
 		return (0);
 	}
-	if (!(rtn = malloc(sizeof(char) * ((ft_strlen(save) - i) + 1))))
+	rtn = malloc(sizeof(char) * ((ft_strlen(save) - i) + 1));
+	if (!rtn)
 		return (0);
 	i++;
 	while (save[i])
@@ -38,7 +39,8 @@ char	*get_line(char *str)
 		return (0);
 	while (str[i] && str[i] != '\n')
 		i++;
-	if (!(rtn = malloc(sizeof(char) * (i + 2))))
+	rtn = malloc(sizeof(char) * (i + 2));
+	if (!rtn)
 		return (0);
 	i = 0;
 	while (str[i] && str[i] != '\n')
@@ -68,7 +70,7 @@ char	*get_next_line(int fd)
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (0);
-	while (!has_return(save) && reader != 0)
+	while (!check_return(save) && reader != 0)
 	{
 		reader = read(fd, buff, BUFFER_SIZE);
 		if (reader == -1)
@@ -82,14 +84,5 @@ char	*get_next_line(int fd)
 	free(buff);
 	line = get_line(save);
 	save = get_save(save);
-	if (reader == 0)
-	{
-		if (line[0])
-			return (line);
-		free(line);
-		if (save)
-			free(save);
-		return (0);
-	}
-	return (line);
+
 }
