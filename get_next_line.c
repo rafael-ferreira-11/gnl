@@ -59,7 +59,7 @@ char	*get_next_line(int fd)
 {
 	char			*buff;
 	static char		*save;
-	static char		*line;
+	char			*line;
 	int				reader;
 
 	reader = 1;
