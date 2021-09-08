@@ -84,5 +84,14 @@ char	*get_next_line(int fd)
 	free(buff);
 	line = get_line(save);
 	save = get_save(save);
-
+	if (reader == 0)
+	{
+		if (line[0])
+			return (line);
+		free(line);
+		if (save)
+			free(save);
+		return (0);
+	}
+	return (line);
 }
