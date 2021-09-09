@@ -6,13 +6,13 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 10:06:10 by user42            #+#    #+#             */
-/*   Updated: 2021/09/09 09:01:46 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/09 09:08:49 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*get_save(char *save)
+char	*get_reserve(char *reserve)
 {
 	char	*rtn;
 	int		i;
@@ -20,23 +20,23 @@ char	*get_save(char *save)
 
 	i = 0;
 	j = 0;
-	if (!save)
+	if (!reserve)
 		return (0);
-	while (save[i] && save[i] != '\n')
+	while (reserve[i] && reserve[i] != '\n')
 		i++;
-	if (!save[i])
+	if (!reserve[i])
 	{
-		free(save);
+		free(reserve);
 		return (0);
 	}
-	rtn = malloc(sizeof(char) * ((ft_strlen(save) - i) + 1));
+	rtn = malloc(sizeof(char) * ((ft_strlen(reserve) - i) + 1));
 	if (!rtn)
 		return (0);
 	i++;
-	while (save[i])
-		rtn[j++] = save[i++];
+	while (reserve[i])
+		rtn[j++] = reserve[i++];
 	rtn[j] = '\0';
-	free(save);
+	free(reserve);
 	return (rtn);
 }
 
@@ -83,7 +83,7 @@ char	*get_end(char *line, int reader)
 char	*get_next_line(int fd)
 {
 	char			*buff;
-	static char		*save;
+	static char		*reserve;
 	char			*line;
 	int				reader;
 
@@ -93,16 +93,16 @@ char	*get_next_line(int fd)
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (0);
-	while (!check_return(save) && reader != 0)
+	while (!check_return(reserve) && reader != 0)
 	{
 		reader = read(fd, buff, BUFFER_SIZE);
 		if (reader == -1)
 			break ;
 		buff[reader] = '\0';
-		save = join_str(save, buff);
+		reserve = join_str(reserve, buff);
 	}
 	free(buff);
-	line = get_line(save);
-	save = get_save(save);
+	line = get_line(reserve);
+	reserve = get_reserve(reserve);
 	return (get_end(line, reader));
 }
