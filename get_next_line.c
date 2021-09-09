@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 10:06:10 by user42            #+#    #+#             */
-/*   Updated: 2021/09/09 08:45:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/09 08:50:55 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,7 @@ char	*get_next_line(int fd)
 	{
 		reader = read(fd, buff, BUFFER_SIZE);
 		if (reader == -1)
-		{
-			free(buff);
-			return (0);
-		}
+			break ;
 		buff[reader] = '\0';
 		save = join_str(save, buff);
 	}
