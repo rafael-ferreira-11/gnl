@@ -6,7 +6,7 @@
 /*   By: user42 <ferreira@asia.com>                 +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/08 10:06:10 by user42            #+#    #+#             */
-/*   Updated: 2021/09/09 08:50:55 by user42           ###   ########.fr       */
+/*   Updated: 2021/09/09 08:54:25 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,7 @@ char	*get_next_line(int fd)
 		if (line[0])
 			return (line);
 		free(line);
-		if (save)
-			free(save);
+
 		return (0);
 	}
 	return (line);
